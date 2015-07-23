@@ -1,9 +1,5 @@
-# sit
-A node.js library for micro service based on di.
+"use strict";
 
-## Usage
-
-```js
 var sit = require('../');
 
 var injector = sit.injector({
@@ -26,4 +22,3 @@ injector.invoke(function (store) {
     })
   });
 });
-```

@@ -1,0 +1,45 @@
+{
+  "name": "sit",
+  "version": "0.1.0",
+  "description": "A node.js library for micro service based on di.",
+  "homepage": "",
+  "repository": "taoyuan/sit",
+  "author": {
+    "name": "Tao Yuan",
+    "email": "towyuan@outlook.com",
+    "url": ""
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "lib/index.js",
+  "keywords": [],
+  "dependencies": {
+    "di": "taoyuan/node-di",
+    "kvs": "^0.1.6",
+    "lodash": "^3.10.0",
+    "log4js": "^0.6.26",
+    "logs": "^0.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^5.5.0",
+    "chai": "^3.2.0",
+    "gulp": "^3.6.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-coveralls": "^0.1.0",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-istanbul": "^0.9.0",
+    "gulp-jscs": "^1.1.0",
+    "gulp-jshint": "^1.5.3",
+    "gulp-mocha": "^2.0.0",
+    "gulp-nsp": "^0.4.5",
+    "gulp-plumber": "^1.0.0",
+    "jshint-stylish": "^1.0.0",
+    "mocha": "^2.2.5"
+  },
+  "scripts": {
+    "prepublish": "gulp prepublish",
+    "test": "gulp"
+  },
+  "license": "MIT"
+}
