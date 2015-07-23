@@ -19,7 +19,8 @@
     "kvs": "^0.1.6",
     "lodash": "^3.10.0",
     "log4js": "^0.6.26",
-    "logs": "^0.1.0"
+    "logs": "^0.1.0",
+    "musher": "^0.2.1"
   },
   "devDependencies": {
     "babel-core": "^5.5.0",

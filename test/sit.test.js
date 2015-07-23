@@ -28,7 +28,7 @@ describe('sit', function () {
     t.equal(store.name, 'memory');
   });
 
-  it('should setup kvstore with redis adapter', function (done) {
+  it.skip('should setup kvstore with redis adapter', function (done) { // start redis server and remove .skip
     var injector = sit.injector({
       store: sit.facets.kvstore
     }, {
@@ -40,6 +40,21 @@ describe('sit', function () {
     t.ok(store);
     t.equal(store.name, 'redis');
     store.ready(done);
+  });
+
+  it.skip('should setup musher', function (done) { // start mqtt server (mosca), and remove .skip
+    var injector = sit.injector({
+      socket: sit.facets.musher
+    }, {
+      socket: {
+        host: 'localhost'
+      }
+    });
+
+    var socket = injector.get('socket');
+    t.ok(socket);
+    t.isFunction(socket.ready);
+    socket.ready(done);
   });
 
   it('should throw error with full path if no provider', function () {
