@@ -19,42 +19,80 @@ describe('sit', function () {
     t.ok(injector.get('$logs'));
   });
 
-  it('should setup kvstore', function () {
-    var injector = sit.injector({
-      store: sit.facets.kvstore
+  describe('facets/kvstore', function () {
+
+    describe('memory adapter', function () {
+      it('should setup kvstore', function () {
+        var injector = sit.injector({
+          store: sit.facets.kvstore
+        });
+        var store = injector.get('store');
+        t.ok(store);
+        t.equal(store.name, 'memory');
+      });
     });
-    var store = injector.get('store');
-    t.ok(store);
-    t.equal(store.name, 'memory');
+
+    describe('redis adapter', function () {
+      it('should setup kvstore with redis adapter', function (done) { // start redis server and remove .skip
+        var injector = sit.injector({
+          store: sit.facets.kvstore
+        }, {
+          store: {
+            adapter: 'redis'
+          }
+        });
+        var store = injector.get('store');
+        t.ok(store);
+        t.equal(store.name, 'redis');
+        store.ready(done);
+      });
+
+      it('should setup kvstore with promise connected', function (done) {
+        var injector = sit.injector({
+          store: sit.facets.kvstore
+        }, {
+          store: {
+            adapter: 'redis'
+          }
+        });
+        var store = injector.get('store');
+        t.ok(store);
+        t.equal(store.name, 'redis');
+        store.$promise.then(done);
+      });
+    });
   });
 
-  it.skip('should setup kvstore with redis adapter', function (done) { // start redis server and remove .skip
-    var injector = sit.injector({
-      store: sit.facets.kvstore
-    }, {
-      store: {
-        adapter: 'redis'
-      }
-    });
-    var store = injector.get('store');
-    t.ok(store);
-    t.equal(store.name, 'redis');
-    store.ready(done);
-  });
+  describe('facets/musher', function () {
+    it('should setup musher', function (done) { // start mqtt server (mosca), and remove .skip
+      var injector = sit.injector({
+        socket: sit.facets.musher
+      }, {
+        socket: {
+          host: 'localhost'
+        }
+      });
 
-  it.skip('should setup musher', function (done) { // start mqtt server (mosca), and remove .skip
-    var injector = sit.injector({
-      socket: sit.facets.musher
-    }, {
-      socket: {
-        host: 'localhost'
-      }
+      var socket = injector.get('socket');
+      t.ok(socket);
+      t.isFunction(socket.ready);
+      socket.ready(done);
     });
 
-    var socket = injector.get('socket');
-    t.ok(socket);
-    t.isFunction(socket.ready);
-    socket.ready(done);
+    it('should setup musher with promise connected', function (done) { // start mqtt server (mosca), and remove .skip
+      var injector = sit.injector({
+        socket: sit.facets.musher
+      }, {
+        socket: {
+          host: 'localhost'
+        }
+      });
+
+      var socket = injector.get('socket');
+      t.ok(socket);
+      t.isFunction(socket.ready);
+      socket.$promise.then(done);
+    });
   });
 
   it('should throw error with full path if no provider', function () {
@@ -71,6 +109,5 @@ describe('sit', function () {
       injector.get('a');
     }, 'No provider for "c"! (Resolving: a -> b -> c)');
   });
-
 
 });
