@@ -51,6 +51,20 @@ describe('sit', function () {
         injector.get('a');
       }, 'No provider for "c"! (Resolving: a -> b -> c)');
     });
+
+    it('should init eagerly by run', function (done) {
+      var hello;
+      var injector = sit.injector({
+        foo: function () {
+          hello = 'world';
+        }
+      });
+
+      injector.run(function (foo) {
+        t.equal(hello, 'world');
+        done();
+      });
+    });
   });
 
   describe('facets/kvstore', function () {
