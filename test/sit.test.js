@@ -4,6 +4,14 @@ var t = require('chai').assert;
 var sit = require('../');
 
 describe('sit', function () {
+  it('should accept value facet', function () {
+    var injector = sit.injector({
+      foo: ['value', 100]
+    });
+
+    t.equal(injector.get('foo'), 100);
+  });
+
   it('should access builtin $options facet', function () {
     var injector = sit.injector({
       foo: function ($options) {
@@ -18,6 +26,22 @@ describe('sit', function () {
     var injector = sit.injector();
     t.ok(injector.get('$logs'));
   });
+
+  it('should throw error with full path if no provider', function () {
+    var injector = sit.injector({
+      a: function (b) {
+        return 'a-value';
+      },
+      b: function (c) {
+        return 'b-value';
+      }
+    });
+
+    t.throw(function () {
+      injector.get('a');
+    }, 'No provider for "c"! (Resolving: a -> b -> c)');
+  });
+
 
   describe('facets/kvstore', function () {
 
@@ -93,21 +117,6 @@ describe('sit', function () {
       t.isFunction(socket.ready);
       socket.$promise.then(done);
     });
-  });
-
-  it('should throw error with full path if no provider', function () {
-    var injector = sit.injector({
-      a: function (b) {
-        return 'a-value';
-      },
-      b: function (c) {
-        return 'b-value';
-      }
-    });
-
-    t.throw(function () {
-      injector.get('a');
-    }, 'No provider for "c"! (Resolving: a -> b -> c)');
   });
 
 });
