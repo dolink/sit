@@ -6,14 +6,8 @@ var mocha = require('gulp-mocha');
 var jshint = require('gulp-jshint');
 var jscs = require('gulp-jscs');
 var istanbul = require('gulp-istanbul');
-var nsp = require('gulp-nsp');
 var plumber = require('gulp-plumber');
 var coveralls = require('gulp-coveralls');
-var babel = require('gulp-babel');
-
-// Initialize the babel transpiler so ES2015 files gets compiled
-// when they're loaded
-require('babel-core/register');
 
 var handleErr = function (err) {
   console.log(err.message);
@@ -28,10 +22,6 @@ gulp.task('static', function () {
     .pipe(jshint.reporter('fail'))
     .pipe(jscs())
     .on('error', handleErr);
-});
-
-gulp.task('nsp', function (cb) {
-  nsp('package.json', cb);
 });
 
 gulp.task('pre-test', function () {
@@ -65,11 +55,4 @@ gulp.task('coveralls', ['test'], function () {
     .pipe(coveralls());
 });
 
-gulp.task('babel', function () {
-  return gulp.src('lib/**/*.js')
-    .pipe(babel())
-    .pipe(gulp.dest('dist'));
-});
-
-gulp.task('prepublish', ['nsp', 'babel']);
 gulp.task('default', ['static', 'test', 'coveralls']);
