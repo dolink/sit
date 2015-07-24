@@ -66,14 +66,14 @@ describe('sit', function () {
   describe('facets/musher', function () {
     it('should setup musher', function (done) { // start mqtt server (mosca), and remove .skip
       var injector = sit.injector({
-        socket: sit.facets.musher
+        bus: sit.facets.musher
       }, {
-        socket: {
+        bus: {
           host: 'localhost'
         }
       });
 
-      var socket = injector.get('socket');
+      var socket = injector.get('bus');
       t.ok(socket);
       t.isFunction(socket.ready);
       socket.ready(done);
@@ -81,14 +81,14 @@ describe('sit', function () {
 
     it('should setup musher with promise connected', function (done) { // start mqtt server (mosca), and remove .skip
       var injector = sit.injector({
-        socket: sit.facets.musher
+        bus: sit.facets.musher
       }, {
-        socket: {
+        bus: {
           host: 'localhost'
         }
       });
 
-      var socket = injector.get('socket');
+      var socket = injector.get('bus');
       t.ok(socket);
       t.isFunction(socket.ready);
       socket.$promise.then(done);
