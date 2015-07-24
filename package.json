@@ -12,7 +12,13 @@
   "main": "lib/index.js",
   "keywords": [],
   "dependencies": {
+    "body-parser": "^1.13.2",
+    "debug": "^2.2.0",
     "di": "taoyuan/node-di",
+    "express": "^4.13.1",
+    "flat": "^1.6.0",
+    "jayson": "^1.2.0",
+    "jsonwebtoken": "^5.0.4",
     "kvs": "^0.1.6",
     "lodash": "^3.10.0",
     "log4js": "^0.6.26",
@@ -31,7 +37,8 @@
     "gulp-mocha": "^2.0.0",
     "gulp-plumber": "^1.0.0",
     "jshint-stylish": "^1.0.0",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "supertest": "^1.0.1"
   },
   "scripts": {
     "test": "gulp"

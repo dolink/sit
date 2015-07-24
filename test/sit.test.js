@@ -72,7 +72,7 @@ describe('sit', function () {
     describe('memory adapter', function () {
       it('should setup kvstore', function () {
         var injector = sit.injector({
-          store: sit.facets.kvstore
+          store: sit.facets.kvstore()
         });
         var store = injector.get('store');
         t.ok(store);
@@ -83,7 +83,7 @@ describe('sit', function () {
     describe('redis adapter', function () {
       it('should setup kvstore with redis adapter', function (done) { // start redis server and remove .skip
         var injector = sit.injector({
-          store: sit.facets.kvstore
+          store: sit.facets.kvstore()
         }, {
           store: {
             adapter: 'redis'
@@ -97,7 +97,7 @@ describe('sit', function () {
 
       it('should setup kvstore with promise connected', function (done) {
         var injector = sit.injector({
-          store: sit.facets.kvstore
+          store: sit.facets.kvstore()
         }, {
           store: {
             adapter: 'redis'
@@ -114,7 +114,7 @@ describe('sit', function () {
   describe('facets/musher', function () {
     it('should setup musher', function (done) { // start mqtt server (mosca), and remove .skip
       var injector = sit.injector({
-        bus: sit.facets.musher
+        bus: sit.facets.musher()
       }, {
         bus: {
           host: 'localhost'
@@ -129,7 +129,7 @@ describe('sit', function () {
 
     it('should setup musher with promise connected', function (done) { // start mqtt server (mosca), and remove .skip
       var injector = sit.injector({
-        bus: sit.facets.musher
+        bus: sit.facets.musher()
       }, {
         bus: {
           host: 'localhost'
