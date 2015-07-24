@@ -25,8 +25,7 @@ gulp.task('static', function () {
 });
 
 gulp.task('pre-test', function () {
-  return gulp.src('lib/**/*.js')    .pipe(babel())
-
+  return gulp.src('lib/**/*.js')
     .pipe(istanbul({includeUntested: true}))
     .pipe(istanbul.hookRequire());
 });

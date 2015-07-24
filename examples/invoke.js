@@ -13,12 +13,12 @@ var injector = sit.injector({
 injector.invoke(function (store) {
   var bucket = store.createBucket('sit-example');
   bucket.set('foo', 'bar', function (err) {
-    if (err) throw err;
+    if (err) { throw err; }
     bucket.get('foo', function (err, value) {
       console.log(value); // 'bar'
       bucket.del('foo', function (err) {
         process.exit();
       });
-    })
+    });
   });
 });
