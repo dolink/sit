@@ -90,7 +90,7 @@ describe('facets/jsonrpc', function () {
     });
   });
 
-  describe.only('integration', function () {
+  describe('integration', function () {
     it('should execute for client request', function (done) {
       var answer;
       var foo = {

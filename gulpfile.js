@@ -33,9 +33,9 @@ gulp.task('pre-test', function () {
 gulp.task('test', ['pre-test'], function (cb) {
   var mochaErr;
 
-  gulp.src('test/**/*.js')
+  gulp.src('test/**/*.test.js')
     .pipe(plumber())
-    .pipe(mocha({reporter: 'spec'}))
+    .pipe(mocha({reporter: 'spec', require: 'test/init.js'}))
     .on('error', function (err) {
       mochaErr = err;
     })
