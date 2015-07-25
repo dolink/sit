@@ -24,7 +24,7 @@ describe('facets/jsonrpc', function () {
       }, {
         server: {
           host: 'localhost',
-          port: '6100',
+          port: '7000',
           signing: {
             sign: true,
             secret: 'secret007'
@@ -37,7 +37,7 @@ describe('facets/jsonrpc', function () {
       t.isFunction((server.methods['car.start']));
       t.notOk(server.methods['_private_method']);
       t.notOk(server.methods['name']);
-      server.$promise.then(function () {
+      server.$promise.finally(function () {
         server.httpServer.close(done);
       });
     });
@@ -49,7 +49,7 @@ describe('facets/jsonrpc', function () {
       }, {
         server: {
           host: 'localhost',
-          port: '6100',
+          port: '7000',
           signing: {
             sign: true,
             secret: 'secret007'
@@ -78,7 +78,7 @@ describe('facets/jsonrpc', function () {
       }, {
         client: {
           host: 'localhost',
-          port: '6100',
+          port: '7000',
           signing: {
             sign: true,
             secret: 'secret007'
@@ -91,7 +91,7 @@ describe('facets/jsonrpc', function () {
   });
 
   describe('integration', function () {
-    it('should execute for client request', function (done) {
+    it('should execute for client request with sign', function (done) {
       var answer;
       var foo = {
         bar: function (msg) {
@@ -106,7 +106,7 @@ describe('facets/jsonrpc', function () {
       }, {
         server: {
           host: 'localhost',
-          port: '6100',
+          port: '7000',
           signing: {
             sign: true,
             secret: 'secret007'
@@ -120,7 +120,7 @@ describe('facets/jsonrpc', function () {
       }, {
         foo: {
           host: 'localhost',
-          port: '6100',
+          port: '7000',
           signing: {
             sign: true,
             secret: 'secret007'
@@ -133,7 +133,104 @@ describe('facets/jsonrpc', function () {
         fooClient.request('bar', 'ping').then(function (response) {
           t.equal(answer, 'ping');
           t.equal(response, 'pong');
-          done();
+        }).finally(function () {
+          server.httpServer.close(done);
+        });
+      });
+    });
+
+    it('should execute for client request without sign', function (done) {
+      var answer;
+      var foo = {
+        bar: function (msg) {
+          answer = msg;
+          return 'pong';
+        }
+      };
+
+      var serverInjector = sit.injector({
+        foo: foo,
+        server: sit.facets.jsonrpc.server('foo')
+      }, {
+        server: {
+          host: 'localhost',
+          port: '7000',
+          signing: {
+            sign: false
+          }
+        }
+      });
+      var server = serverInjector.get('server');
+
+      var clientInjector = sit.injector({
+        foo: sit.facets.jsonrpc.client()
+      }, {
+        foo: {
+          host: 'localhost',
+          port: '7000',
+          signing: {
+            sign: false
+          }
+        }
+      });
+      var fooClient = clientInjector.get('foo');
+
+      server.$promise.then(function () {
+        fooClient.request('bar', 'ping').then(function (response) {
+          t.equal(answer, 'ping');
+        }).finally(function () {
+          server.httpServer.close(done);
+        });
+      });
+    });
+
+    it('should return error if signing not matching', function (done) {
+      var answer;
+      var foo = {
+        bar: function (msg) {
+          answer = msg;
+          return 'pong';
+        }
+      };
+
+      var serverInjector = sit.injector({
+        foo: foo,
+        server: sit.facets.jsonrpc.server('foo')
+      }, {
+        server: {
+          host: 'localhost',
+          port: '7000',
+          signing: {
+            sign: true,
+            secret: 'secret007'
+          }
+        }
+      });
+      var server = serverInjector.get('server');
+
+      var clientInjector = sit.injector({
+        foo: sit.facets.jsonrpc.client()
+      }, {
+        foo: {
+          host: 'localhost',
+          port: '7000',
+          signing: {
+            sign: true,
+            secret: 'secret008'
+          }
+        }
+      });
+      var fooClient = clientInjector.get('foo');
+
+      server.$promise.then(function () {
+        fooClient.request('bar', 'ping').then(function () {
+          t.fail('should not run here')
+        }).catch(function (err) {
+          t.ok(err);
+          t.equal(err.code, 403);
+          t.equal(err.message, 'Verification of signed message failed');
+        }).finally(function () {
+          server.httpServer.close(done);
         });
       });
     });
