@@ -21,7 +21,6 @@
     "jsonwebtoken": "^5.0.4",
     "kvs": "^0.1.6",
     "lodash": "^3.10.0",
-    "log4js": "^0.6.26",
     "logs": "^0.1.0",
     "musher": "^0.2.1",
     "when": "^3.7.3"
@@ -37,6 +36,7 @@
     "gulp-mocha": "^2.0.0",
     "gulp-plumber": "^1.0.0",
     "jshint-stylish": "^1.0.0",
+    "log4js": "^0.6.26",
     "mocha": "^2.2.5",
     "supertest": "^1.0.1"
   },
