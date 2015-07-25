@@ -1,5 +1,5 @@
 # sit
-A node.js library for micro service based on di.
+A node.js library for micro service based on node-di.
 
 ## Usage
 
