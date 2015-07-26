@@ -1,9 +1,5 @@
-# sit
-A node.js library for micro service based on node-di.
+"use strict";
 
-## Usage
-
-```js
 var sit = require('../');
 
 var container = sit.container({
@@ -27,4 +23,3 @@ bucket.set('foo', 'bar', function (err) {
     });
   });
 });
-```
