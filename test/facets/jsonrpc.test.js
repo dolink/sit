@@ -18,7 +18,7 @@ describe('facets/jsonrpc', function () {
 
   describe('server', function () {
     it('should setup methods', function (done) {
-      var injector = sit.injector({
+      var container = sit.container({
         car: car,
         server: sit.facets.jsonrpc.server('car')
       }, {
@@ -32,7 +32,7 @@ describe('facets/jsonrpc', function () {
         }
       });
 
-      var server = injector.get('server');
+      var server = container.get('server');
       t.ok(server.methods);
       t.isFunction((server.methods['car.start']));
       t.notOk(server.methods['_private_method']);
@@ -43,7 +43,7 @@ describe('facets/jsonrpc', function () {
     });
 
     it('should listen', function (done) {
-      var injector = sit.injector({
+      var container = sit.container({
         car: car,
         server: sit.facets.jsonrpc.server('car')
       }, {
@@ -57,7 +57,7 @@ describe('facets/jsonrpc', function () {
         }
       });
 
-      var server = injector.get('server');
+      var server = container.get('server');
       server.$promise.then(function (app) {
         request(app)
           .get('/status')
@@ -73,7 +73,7 @@ describe('facets/jsonrpc', function () {
 
   describe('client', function () {
     it('should setup client', function () {
-      var injector = sit.injector({
+      var container = sit.container({
         client: sit.facets.jsonrpc.client()
       }, {
         client: {
@@ -85,7 +85,7 @@ describe('facets/jsonrpc', function () {
           }
         }
       });
-      var client = injector.get('client');
+      var client = container.get('client');
       t.ok(client.client);
     });
   });
@@ -100,7 +100,7 @@ describe('facets/jsonrpc', function () {
         }
       };
 
-      var serverInjector = sit.injector({
+      var serverContainer = sit.container({
         foo: foo,
         server: sit.facets.jsonrpc.server('foo')
       }, {
@@ -113,9 +113,9 @@ describe('facets/jsonrpc', function () {
           }
         }
       });
-      var server = serverInjector.get('server');
+      var server = serverContainer.get('server');
 
-      var clientInjector = sit.injector({
+      var clientContainer = sit.container({
         foo: sit.facets.jsonrpc.client()
       }, {
         foo: {
@@ -127,7 +127,7 @@ describe('facets/jsonrpc', function () {
           }
         }
       });
-      var fooClient = clientInjector.get('foo');
+      var fooClient = clientContainer.get('foo');
 
       server.$promise.then(function () {
         fooClient.request('bar', 'ping').then(function (response) {
@@ -148,7 +148,7 @@ describe('facets/jsonrpc', function () {
         }
       };
 
-      var serverInjector = sit.injector({
+      var serverContainer = sit.container({
         foo: foo,
         server: sit.facets.jsonrpc.server('foo')
       }, {
@@ -160,9 +160,9 @@ describe('facets/jsonrpc', function () {
           }
         }
       });
-      var server = serverInjector.get('server');
+      var server = serverContainer.get('server');
 
-      var clientInjector = sit.injector({
+      var clientContainer = sit.container({
         foo: sit.facets.jsonrpc.client()
       }, {
         foo: {
@@ -173,7 +173,7 @@ describe('facets/jsonrpc', function () {
           }
         }
       });
-      var fooClient = clientInjector.get('foo');
+      var fooClient = clientContainer.get('foo');
 
       server.$promise.then(function () {
         fooClient.request('bar', 'ping').then(function (response) {
@@ -193,7 +193,7 @@ describe('facets/jsonrpc', function () {
         }
       };
 
-      var serverInjector = sit.injector({
+      var serverContainer = sit.container({
         foo: foo,
         server: sit.facets.jsonrpc.server('foo')
       }, {
@@ -206,9 +206,9 @@ describe('facets/jsonrpc', function () {
           }
         }
       });
-      var server = serverInjector.get('server');
+      var server = serverContainer.get('server');
 
-      var clientInjector = sit.injector({
+      var clientContainer = sit.container({
         foo: sit.facets.jsonrpc.client()
       }, {
         foo: {
@@ -220,7 +220,7 @@ describe('facets/jsonrpc', function () {
           }
         }
       });
-      var fooClient = clientInjector.get('foo');
+      var fooClient = clientContainer.get('foo');
 
       server.$promise.then(function () {
         fooClient.request('bar', 'ping').then(function () {

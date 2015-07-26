@@ -5,40 +5,40 @@ var sit = require('../');
 
 describe('sit', function () {
 
-  describe('injector', function () {
+  describe('container', function () {
     it('should accept value facet', function () {
-      var injector = sit.injector({
+      var container = sit.container({
         foo: ['value', 100]
       });
 
-      t.equal(injector.get('foo'), 100);
+      t.equal(container.get('foo'), 100);
     });
 
-    it('should get injector self', function () {
-      var injector = sit.injector();
-      injector.invoke(function (injector) {
-        t.ok(injector);
-        t.isFunction(injector.invoke)
+    it('should get container self', function () {
+      var container = sit.container();
+      container.invoke(function (container) {
+        t.ok(container);
+        t.isFunction(container.invoke)
       });
     });
 
     it('should access builtin $options facet', function () {
-      var injector = sit.injector({
+      var container = sit.container({
         foo: function ($options) {
           return $options.foo;
         }
       }, {foo: 'bar'});
 
-      t.equal(injector.get('foo'), 'bar');
+      t.equal(container.get('foo'), 'bar');
     });
 
     it('should access builtin $logs facet', function () {
-      var injector = sit.injector();
-      t.ok(injector.get('$logs'));
+      var container = sit.container();
+      t.ok(container.get('$logs'));
     });
 
     it('should throw error with full path if no provider', function () {
-      var injector = sit.injector({
+      var container = sit.container({
         a: function (b) {
           return 'a-value';
         },
@@ -48,19 +48,19 @@ describe('sit', function () {
       });
 
       t.throw(function () {
-        injector.get('a');
+        container.get('a');
       }, 'No provider for "c"! (Resolving: a -> b -> c)');
     });
 
     it('should init eagerly by run', function (done) {
       var hello;
-      var injector = sit.injector({
+      var container = sit.container({
         foo: function () {
           hello = 'world';
         }
       });
 
-      injector.run(function (foo) {
+      container.run(function (foo) {
         t.equal(hello, 'world');
         done();
       });

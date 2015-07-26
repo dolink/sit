@@ -2,7 +2,7 @@
 
 var sit = require('../');
 
-var injector = sit.injector({
+var container = sit.container({
   store: sit.facets.kvstore
 }, {
   store: {
@@ -10,7 +10,7 @@ var injector = sit.injector({
   }
 });
 
-injector.invoke(function (store) {
+container.invoke(function (store) {
   var bucket = store.createBucket('sit-example');
   bucket.set('foo', 'bar', function (err) {
     if (err) { throw err; }
