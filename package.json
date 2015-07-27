@@ -17,12 +17,12 @@
     "dicon": "^1.0.0i",
     "express": "^4.13.1",
     "flat": "^1.6.0",
-    "jayson": "^1.2.0",
     "jsonwebtoken": "^5.0.4",
     "kvs": "^0.1.6",
     "lodash": "^3.10.0",
     "logs": "^0.1.0",
     "musher": "^0.2.1",
+    "rayson": "^0.1.5",
     "when": "^3.7.3"
   },
   "devDependencies": {
@@ -38,6 +38,7 @@
     "jshint-stylish": "^2.0.1",
     "log4js": "^0.6.26",
     "mocha": "^2.2.5",
+    "mosca": "^0.31.0",
     "supertest": "^1.0.1"
   },
   "scripts": {

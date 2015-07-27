@@ -1,6 +1,7 @@
 "use strict";
 
 var t = require('chai').assert;
+var s = require('../support')
 var sit = require('../../');
 var request = require('supertest');
 
@@ -38,7 +39,7 @@ describe('facets/jsonrpc', function () {
       t.notOk(server.methods['_private_method']);
       t.notOk(server.methods['name']);
       server.$promise.finally(function () {
-        server.httpServer.close(done);
+        server.server.close(done);
       });
     });
 
@@ -65,7 +66,7 @@ describe('facets/jsonrpc', function () {
           .expect({status: 'ok'})
           .end(function (err) {
             if (err) throw err;
-            server.httpServer.close(done);
+            server.server.close(done);
           });
       });
     });
@@ -134,7 +135,7 @@ describe('facets/jsonrpc', function () {
           t.equal(answer, 'ping');
           t.equal(response, 'pong');
         }).finally(function () {
-          server.httpServer.close(done);
+          server.server.close(done);
         });
       });
     });
@@ -179,7 +180,7 @@ describe('facets/jsonrpc', function () {
         fooClient.request('bar', 'ping').then(function (response) {
           t.equal(answer, 'ping');
         }).finally(function () {
-          server.httpServer.close(done);
+          server.server.close(done);
         });
       });
     });
@@ -230,7 +231,60 @@ describe('facets/jsonrpc', function () {
           t.equal(err.code, 403);
           t.equal(err.message, 'Verification of signed message failed');
         }).finally(function () {
-          server.httpServer.close(done);
+          server.server.close(done);
+        });
+      });
+    });
+  });
+
+  describe('protocol/mqtt', function () {
+
+    before(s.abStartMosca());
+    after(s.abStopMosca());
+
+    it('should work with mqtt protocol', function (done) {
+      var answer;
+      var foo = {
+        bar: function (msg) {
+          answer = msg;
+          return 'pong';
+        }
+      };
+
+      var serverContainer = sit.container({
+        foo: foo,
+        server: sit.facets.jsonrpc.server('foo')
+      }, {
+        server: {
+          protocol: 'mqtt',
+          port: s.port,
+          topic: '$rpc',
+          signing: {
+            sign: false
+          }
+        }
+      });
+      var server = serverContainer.get('server');
+
+      var clientContainer = sit.container({
+        foo: sit.facets.jsonrpc.client()
+      }, {
+        foo: {
+          protocol: 'mqtt',
+          port: s.port,
+          topic: '$rpc',
+          signing: {
+            sign: false
+          }
+        }
+      });
+      var fooClient = clientContainer.get('foo');
+
+      server.$promise.then(function () {
+        fooClient.request('bar', 'ping').then(function (response) {
+          t.equal(answer, 'ping');
+        }).finally(function () {
+          server.server.close(done);
         });
       });
     });
