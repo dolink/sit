@@ -1,15 +1,19 @@
 "use strict";
 
 var t = require('chai').assert;
+var s = require('../support');
 var sit = require('../../');
 
 describe('facets/musher', function () {
+  before(s.abStartMosca());
+  after(s.abStopMosca());
   it('should setup musher', function (done) { // start mqtt server (mosca), and remove .skip
     var container = sit.container({
       bus: sit.facets.musher()
     }, {
       bus: {
-        host: 'localhost'
+        host: 'localhost',
+        port: s.port
       }
     });
 
@@ -24,7 +28,8 @@ describe('facets/musher', function () {
       bus: sit.facets.musher()
     }, {
       bus: {
-        host: 'localhost'
+        host: 'localhost',
+        port: s.port
       }
     });
 
