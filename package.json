@@ -1,6 +1,6 @@
 {
   "name": "sit",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "A node.js library for micro service based on node-di.",
   "homepage": "",
   "repository": "taoyuan/sit",
