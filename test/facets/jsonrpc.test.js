@@ -1,7 +1,7 @@
 "use strict";
 
 var t = require('chai').assert;
-var s = require('../support')
+var s = require('../support');
 var sit = require('../../');
 var request = require('supertest');
 

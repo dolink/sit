@@ -35,3 +35,13 @@ exports.abStopMosca = function () {
     done();
   }
 };
+
+exports.delaycall = function (ms, cb) {
+  if (typeof ms === 'function') {
+    cb = ms;
+    ms = 100;
+  }
+  setTimeout(function () {
+    cb && cb();
+  }, ms);
+};
