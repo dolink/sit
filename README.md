@@ -41,7 +41,7 @@ MIT © [Tao Yuan]()
 
 [npm-image]: https://badge.fury.io/js/sit.svg
 [npm-url]: https://npmjs.org/package/sit
-[circleci-image]: https://circleci.com/gh/dolink/sit.svg?style=shield
-[circleci-url]: https://circleci.com/gh/dolink/sit
-[daviddm-image]: https://david-dm.org/dolink/sit.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/dolink/sit
+[circleci-image]: https://circleci.com/gh/taoyuan/sit.svg?style=shield
+[circleci-url]: https://circleci.com/gh/taoyuan/sit
+[daviddm-image]: https://david-dm.org/taoyuan/sit.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/taoyuan/sit
