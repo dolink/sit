@@ -1,5 +1,10 @@
 # sit
-A node.js library for micro service based on node-di.
+
+[![NPM version][npm-image]][npm-url] 
+[![Build Status][circleci-image]][circleci-url] 
+[![Dependency Status][daviddm-image]][daviddm-url]
+
+> A node.js library for micro service based on node-di.
 
 ## Usage
 
@@ -28,3 +33,15 @@ bucket.set('foo', 'bar', function (err) {
   });
 });
 ```
+
+## License
+
+MIT © [Tao Yuan]()
+
+
+[npm-image]: https://badge.fury.io/js/sit.svg
+[npm-url]: https://npmjs.org/package/sit
+[circleci-image]: https://circleci.com/gh/taoyuan/sit.svg?style=shield
+[circleci-url]: https://circleci.com/gh/taoyuan/sit
+[daviddm-image]: https://david-dm.org/taoyuan/sit.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/taoyuan/sit
