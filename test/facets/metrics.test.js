@@ -33,7 +33,7 @@ describe('facets/metrics', function () {
       metrics.close();
     });
 
-    it.only('should count', function () {
+    it('should count', function () {
       metrics.increment('foo', 1);
     });
   });
