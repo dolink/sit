@@ -12,7 +12,7 @@
   "main": "lib/index.js",
   "keywords": [],
   "dependencies": {
-    "amqper": "^0.1.11",
+    "amqper": "^0.1.13",
     "body-parser": "^1.13.2",
     "debug": "^2.2.0",
     "dicon": "^1.0.0",
@@ -23,7 +23,7 @@
     "lodash": "^3.10.0",
     "logs": "^0.1.0",
     "msgpack": "^0.2.6",
-    "musher": "^0.2.2",
+    "musher": "^0.2.3",
     "rayson": "^0.2.2",
     "when": "^3.7.3"
   },
