@@ -23,8 +23,8 @@
     "lodash": "^3.10.0",
     "logs": "^0.1.0",
     "msgpack": "^0.2.6",
-    "musher": "^0.2.1",
-    "rayson": "^0.2.0",
+    "musher": "^0.2.2",
+    "rayson": "^0.2.2",
     "when": "^3.7.3"
   },
   "devDependencies": {
