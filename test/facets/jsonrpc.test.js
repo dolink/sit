@@ -1,6 +1,7 @@
 "use strict";
 
 var t = require('chai').assert;
+var when = require('when');
 var s = require('../support');
 var sit = require('../../');
 var request = require('supertest');
@@ -289,5 +290,59 @@ describe('facets/jsonrpc', function () {
       });
     });
   });
+
+  describe('parallels', function () {
+    it('should execute in paralleling', function (done) {
+      var foo = {
+        bar: function (msg) {
+          return msg;
+        }
+      };
+
+      var serverContainer = sit.container({
+        foo: foo,
+        server: sit.facets.jsonrpc.server('foo')
+      }, {
+        server: {
+          host: 'localhost',
+          port: '7000',
+          signing: {
+            sign: true,
+            secret: 'secret007'
+          }
+        }
+      });
+      var server = serverContainer.get('server');
+
+      var clientContainer = sit.container({
+        foo: sit.facets.jsonrpc.client()
+      }, {
+        foo: {
+          host: 'localhost',
+          port: '7000',
+          signing: {
+            sign: true,
+            secret: 'secret007'
+          }
+        }
+      });
+      var fooClient = clientContainer.get('foo');
+
+      var arr = [];
+      for (var i = 1; i < 21; i++) {
+        arr.push(i);
+      }
+
+      server.$promise.then(function () {
+        when.all(when.map(arr, function (item) {
+          return fooClient.request('bar', item).then(function (response) {
+            t.equal(response, item);
+          })
+        })).finally(function () {
+          server.server.close(done);
+        });
+      });
+    });
+  })
 
 });

@@ -12,19 +12,19 @@
   "main": "lib/index.js",
   "keywords": [],
   "dependencies": {
-    "amqper": "^0.1.13",
-    "body-parser": "^1.13.2",
+    "amqper": "^0.2.0",
+    "body-parser": "^1.13.3",
     "debug": "^2.2.0",
     "dicon": "^1.0.0",
-    "express": "^4.13.1",
+    "express": "^4.13.3",
     "flat": "^1.6.0",
     "jsonwebtoken": "^5.0.4",
-    "kvs": "^0.1.6",
+    "kvs": "^0.1.7",
     "lodash": "^3.10.0",
     "logs": "^0.1.0",
     "msgpack": "^0.2.6",
     "musher": "^0.2.3",
-    "rayson": "^0.2.2",
+    "rayson": "^0.2.4",
     "when": "^3.7.3"
   },
   "devDependencies": {
@@ -40,7 +40,7 @@
     "jshint-stylish": "^2.0.1",
     "log4js": "^0.6.26",
     "mocha": "^2.2.5",
-    "mosca": "^0.31.0",
+    "mosca": "^0.31.1",
     "supertest": "^1.0.1"
   },
   "scripts": {
