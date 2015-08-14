@@ -4,7 +4,6 @@ var gulp = require('gulp');
 var excludeGitignore = require('gulp-exclude-gitignore');
 var mocha = require('gulp-mocha');
 var jshint = require('gulp-jshint');
-var jscs = require('gulp-jscs');
 var istanbul = require('gulp-istanbul');
 var plumber = require('gulp-plumber');
 var coveralls = require('gulp-coveralls');
@@ -20,7 +19,6 @@ gulp.task('static', function () {
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'))
-    .pipe(jscs())
     .on('error', handleErr);
 });
 

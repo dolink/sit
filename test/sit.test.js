@@ -18,7 +18,7 @@ describe('sit', function () {
       var container = sit.container();
       container.invoke(function (container) {
         t.ok(container);
-        t.isFunction(container.invoke)
+        t.isFunction(container.invoke);
       });
     });
 

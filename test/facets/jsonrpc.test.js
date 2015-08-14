@@ -9,7 +9,7 @@ var request = require('supertest');
 var car = {
   name: 'Tesla',
   start: function () {
-    console.log(start);
+    console.log('start');
   },
   _private_method: function () {
 
@@ -37,8 +37,8 @@ describe('facets/jsonrpc', function () {
       var server = container.get('server');
       t.ok(server.methods);
       t.isFunction((server.methods['car.start']));
-      t.notOk(server.methods['_private_method']);
-      t.notOk(server.methods['name']);
+      t.notOk(server.methods._private_method);
+      t.notOk(server.methods.name);
       server.$promise.finally(function () {
         server.server.close(done);
       });
@@ -226,7 +226,7 @@ describe('facets/jsonrpc', function () {
 
       server.$promise.then(function () {
         fooClient.request('bar', 'ping').then(function () {
-          t.fail('should not run here')
+          t.fail('should not run here');
         }).catch(function (err) {
           t.ok(err);
           t.equal(err.code, 403);
@@ -337,12 +337,12 @@ describe('facets/jsonrpc', function () {
         when.all(when.map(arr, function (item) {
           return fooClient.request('bar', item).then(function (response) {
             t.equal(response, item);
-          })
+          });
         })).finally(function () {
           server.server.close(done);
         });
       });
     });
-  })
+  });
 
 });

@@ -23,17 +23,17 @@ exports.abStartMosca = function (settings) {
   return function (done) {
     this.mosca = exports.startMosca(settings);
     this.mosca.on('ready', done);
-  }
+  };
 };
 
 exports.abStopMosca = function () {
-  return function(done) {
+  return function (done) {
     console.log();
     console.log('close mosca');
     console.log();
     if (this.mosca) return this.mosca.close(done);
     done();
-  }
+  };
 };
 
 exports.delaycall = function (ms, cb) {
@@ -42,6 +42,6 @@ exports.delaycall = function (ms, cb) {
     ms = 100;
   }
   setTimeout(function () {
-    cb && cb();
+    if (cb) cb();
   }, ms);
 };

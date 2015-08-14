@@ -1,7 +1,7 @@
 # sit
 
 [![NPM version][npm-image]][npm-url] 
-[![Build Status][circleci-image]][circleci-url] 
+[![Build Status][travis-image]][travis-url] 
 [![Dependency Status][daviddm-image]][daviddm-url]
 
 > A node.js library for micro service based on node-di.
@@ -41,7 +41,7 @@ MIT © [Tao Yuan]()
 
 [npm-image]: https://badge.fury.io/js/sit.svg
 [npm-url]: https://npmjs.org/package/sit
-[circleci-image]: https://circleci.com/gh/taoyuan/sit.svg?style=shield
-[circleci-url]: https://circleci.com/gh/taoyuan/sit
+[travis-image]: http://img.shields.io/travis/taoyuan/needs.svg?style=flat
+[travis-url]: https://travis-ci.org/taoyuan/needs
 [daviddm-image]: https://david-dm.org/taoyuan/sit.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/taoyuan/sit
