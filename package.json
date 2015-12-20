@@ -24,7 +24,7 @@
     "logs": "^0.1.1",
     "msgpack": "^1.0.2",
     "musher": "^0.2.3",
-    "rayson": "^0.3.0",
+    "rayson": "^0.3.1",
     "statsd-client": "^0.2.1",
     "when": "^3.7.5"
   },
