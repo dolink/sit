@@ -131,12 +131,17 @@ describe('facets/jsonrpc', function () {
       });
       var fooClient = clientContainer.get('foo');
 
+      var error;
       server.$promise.then(function () {
         fooClient.request('bar', 'ping').then(function (response) {
           t.equal(answer, 'ping');
           t.equal(response, 'pong');
+        }, function (err) {
+          error = err;
         }).finally(function () {
-          server.server.close(done);
+          server.server.close(function () {
+            done(error);
+          });
         });
       });
     });

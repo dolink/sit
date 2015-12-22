@@ -45,7 +45,7 @@ describe('facets/mq/amqp', function () {
 
       var amqp = container.get('amqp');
       amqp.$promise.then(function () {
-        amqp.route('test.:arg', {queue: 'this_is_queue_name'}, function (err, message) {
+        amqp.route('test.:arg', {queue: 'this_is_queue_name'}, function (message) {
           t.deepEqual(message.payload, data);
           s.delaycall(function () {
             amqp.close(done);
