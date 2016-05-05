@@ -2,6 +2,7 @@
 
 var t = require('chai').assert;
 var sit = require('../../');
+var FakeServer = require('../fake-server');
 
 describe('facets/metrics', function () {
 
@@ -16,8 +17,8 @@ describe('facets/metrics', function () {
 
   describe('operations', function () {
 
-    var container, metrics;
-    before(function () {
+    var container, metrics, s;
+    before(function (done) {
       container = sit.container({
         metrics: sit.facets.metrics()
       }, {
@@ -27,14 +28,21 @@ describe('facets/metrics', function () {
       });
 
       metrics = container.get('metrics');
+      s = new FakeServer();
+      // s.start(done);
+      done();
     });
 
     after(function () {
       metrics.close();
+      // s.stop();
     });
 
-    it('should count', function () {
-      metrics.increment('foo', 1);
+    it.only('should count', function (done) {
+      metrics.increment('test.foo', 1);
+      metrics.gauge('test.gauge', 10);
+      // s.expectMessage('foo:1|c', done);
+      done();
     });
   });
 
