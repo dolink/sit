@@ -29,19 +29,19 @@ describe('facets/metrics', function () {
 
       metrics = container.get('metrics');
       s = new FakeServer();
-      // s.start(done);
+      s.start(done);
       done();
     });
 
     after(function () {
       metrics.close();
-      // s.stop();
+      s.stop();
     });
 
     it.only('should count', function (done) {
       metrics.increment('test.foo', 1);
       metrics.gauge('test.gauge', 10);
-      // s.expectMessage('foo:1|c', done);
+      s.expectMessage('foo:1|c', done);
       done();
     });
   });
