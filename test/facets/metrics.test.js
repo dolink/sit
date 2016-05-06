@@ -30,7 +30,6 @@ describe('facets/metrics', function () {
       metrics = container.get('metrics');
       s = new FakeServer();
       s.start(done);
-      done();
     });
 
     after(function () {
@@ -38,11 +37,10 @@ describe('facets/metrics', function () {
       s.stop();
     });
 
-    it.only('should count', function (done) {
+    it('should count', function (done) {
       metrics.increment('test.foo', 1);
       metrics.gauge('test.gauge', 10);
-      s.expectMessage('foo:1|c', done);
-      done();
+      s.expectMessage('test.foo:1|c', done);
     });
   });
 

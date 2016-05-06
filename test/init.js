@@ -2,5 +2,5 @@
 
 var sit = require('../');
 
-sit.defaults.$logs.adapter = 'log4js';
+sit.defaults.$logs.adapter = 'winston';
 sit.defaults.$logs.level = 'debug';
