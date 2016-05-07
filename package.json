@@ -21,7 +21,7 @@
     "jsonwebtoken": "^6.2.0",
     "kvs": "^0.1.7",
     "lodash": "^4.11.2",
-    "logs": "latest",
+    "logs": "^1.0.9",
     "msgpack": "^1.0.2",
     "musher": "^0.3.0",
     "rayson": "^0.3.2",
