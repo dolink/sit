@@ -4,7 +4,7 @@ var t = require('chai').assert;
 var s = require('../support');
 var sit = require('../../');
 
-describe('facets/mq/amqp', function () {
+describe.skip('facets/mq/amqp', function () {
   this.timeout(10000);
 
   describe('initialize', function () {

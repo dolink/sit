@@ -1,10 +1,11 @@
 "use strict";
 
 var t = require('chai').assert;
-var when = require('when');
+var PromiseA = require('bluebird');
+var findPort = require('find-port');
+var request = require('supertest');
 var s = require('../support');
 var sit = require('../../');
-var request = require('supertest');
 
 var car = {
   name: 'Tesla',
@@ -18,6 +19,15 @@ var car = {
 
 describe('facets/jsonrpc', function () {
 
+  var port;
+  before(function (done) {
+    findPort('127.0.0.1', [10000, 10010], function (ports) {
+      port = ports[0];
+      done();
+    });
+  });
+
+
   describe('server', function () {
     it('should setup methods', function (done) {
       var container = sit.container({
@@ -26,7 +36,7 @@ describe('facets/jsonrpc', function () {
       }, {
         server: {
           host: 'localhost',
-          port: '7000',
+          port: port,
           signing: {
             sign: true,
             secret: 'secret007'
@@ -51,7 +61,7 @@ describe('facets/jsonrpc', function () {
       }, {
         server: {
           host: 'localhost',
-          port: '7000',
+          port: port,
           signing: {
             sign: true,
             secret: 'secret007'
@@ -80,7 +90,7 @@ describe('facets/jsonrpc', function () {
       }, {
         client: {
           host: 'localhost',
-          port: '7000',
+          port: port,
           signing: {
             sign: true,
             secret: 'secret007'
@@ -108,7 +118,7 @@ describe('facets/jsonrpc', function () {
       }, {
         server: {
           host: 'localhost',
-          port: '7000',
+          port: port,
           signing: {
             sign: true,
             secret: 'secret007'
@@ -122,7 +132,7 @@ describe('facets/jsonrpc', function () {
       }, {
         foo: {
           host: 'localhost',
-          port: '7000',
+          port: port,
           signing: {
             sign: true,
             secret: 'secret007'
@@ -161,7 +171,7 @@ describe('facets/jsonrpc', function () {
       }, {
         server: {
           host: 'localhost',
-          port: '7000',
+          port: port,
           signing: {
             sign: false
           }
@@ -174,7 +184,7 @@ describe('facets/jsonrpc', function () {
       }, {
         foo: {
           host: 'localhost',
-          port: '7000',
+          port: port,
           signing: {
             sign: false
           }
@@ -206,7 +216,7 @@ describe('facets/jsonrpc', function () {
       }, {
         server: {
           host: 'localhost',
-          port: '7000',
+          port: port,
           signing: {
             sign: true,
             secret: 'secret007'
@@ -220,7 +230,7 @@ describe('facets/jsonrpc', function () {
       }, {
         foo: {
           host: 'localhost',
-          port: '7000',
+          port: port,
           signing: {
             sign: true,
             secret: 'secret008'
@@ -310,7 +320,7 @@ describe('facets/jsonrpc', function () {
       }, {
         server: {
           host: 'localhost',
-          port: '7000',
+          port: port,
           signing: {
             sign: true,
             secret: 'secret007'
@@ -324,7 +334,7 @@ describe('facets/jsonrpc', function () {
       }, {
         foo: {
           host: 'localhost',
-          port: '7000',
+          port: port,
           signing: {
             sign: true,
             secret: 'secret007'
@@ -339,11 +349,11 @@ describe('facets/jsonrpc', function () {
       }
 
       server.$promise.then(function () {
-        when.all(when.map(arr, function (item) {
+        PromiseA.map(arr, function (item) {
           return fooClient.request('bar', item).then(function (response) {
             t.equal(response, item);
           });
-        })).finally(function () {
+        }).finally(function () {
           server.server.close(done);
         });
       });
