@@ -300,7 +300,8 @@ describe('facets/jsonrpc', function () {
         fooClient.request('bar', 'ping').then(function (response) {
           t.equal(answer, 'ping');
         }).finally(function () {
-          server.server.close(done);
+          // TODO should be fooClient.close(...)
+          fooClient.client.close(() => server.server.close(done));
         });
       });
     });

@@ -31,8 +31,10 @@ exports.abStopMosca = function () {
     console.log();
     console.log('close mosca');
     console.log();
-    if (this.mosca) return this.mosca.close(done);
-    done();
+    if (!this.mosca) {
+      done();
+    }
+    this.mosca.close(done);
   };
 };
 

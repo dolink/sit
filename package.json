@@ -12,14 +12,14 @@
   "main": "lib/index.js",
   "keywords": [],
   "dependencies": {
-    "amqper": "^0.4.0",
-    "bluebird": "^3.5.0",
-    "body-parser": "^1.17.2",
-    "debug": "^2.6.8",
+    "amqper": "^0.5.0",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "debug": "^3.1.0",
     "dicon": "^1.0.2",
-    "express": "^4.15.3",
+    "express": "^4.16.2",
     "flat": "^4.0.0",
-    "jsonwebtoken": "^7.4.1",
+    "jsonwebtoken": "^8.1.0",
     "kvs": "^0.1.8",
     "lodash": "^4.17.4",
     "logs": "^1.1.2",
@@ -27,25 +27,27 @@
     "musher": "^0.3.0",
     "rayson": "^0.3.3",
     "statsd-client": "^0.4.0",
-    "winston": "^2.3.1"
+    "winston": "^2.4.0"
   },
   "devDependencies": {
-    "chai": "^4.1.0",
+    "@types/chai": "^4.0.10",
+    "@types/mocha": "^2.2.44",
+    "chai": "^4.1.2",
     "find-port": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-coveralls": "^0.1.4",
-    "gulp-exclude-gitignore": "^1.1.1",
+    "gulp-exclude-gitignore": "^1.2.0",
     "gulp-istanbul": "^1.1.2",
     "gulp-jshint": "^2.0.4",
     "gulp-mocha": "^4.3.1",
     "gulp-plumber": "^1.1.0",
     "jshint-stylish": "^2.2.1",
-    "mocha": "^3.4.2",
-    "mosca": "^2.5.2",
+    "mocha": "^4.0.1",
+    "mosca": "^2.7.0",
     "supertest": "^3.0.0"
   },
   "scripts": {
-    "test": "mocha -r test/init.js test/*.test.js test/**/*.test.js"
+    "test": "mocha -r test/init.js test/**/*.test.js"
   },
   "license": "MIT"
 }
