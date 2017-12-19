@@ -1,18 +1,19 @@
 "use strict";
 
 var t = require('chai').assert;
-var sit = require('../../');
+var sit = require('../..');
 
 describe('facets/kvstore', function () {
 
   describe('memory adapter', function () {
-    it('should setup kvstore', function () {
+    it('should setup kvstore', function (done) {
       var container = sit.container({
         store: sit.facets.kvstore()
       });
       var store = container.get('store');
       t.ok(store);
       t.equal(store.name, 'memory');
+      store.close(done);
     });
   });
 
@@ -28,7 +29,7 @@ describe('facets/kvstore', function () {
       var store = container.get('store');
       t.ok(store);
       t.equal(store.name, 'redis');
-      store.ready(done);
+      store.ready(() => store.close(done));
     });
 
     it('should setup kvstore with promise connected', function (done) {
@@ -42,7 +43,7 @@ describe('facets/kvstore', function () {
       var store = container.get('store');
       t.ok(store);
       t.equal(store.name, 'redis');
-      store.$promise.then(done);
+      store.$promise.then(() => store.close(done));
     });
   });
 });
